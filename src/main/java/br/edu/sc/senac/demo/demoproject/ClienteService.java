@@ -99,10 +99,8 @@ public class ClienteService {
 
 	@PostMapping("/addpayload")
 	public Long addCliente(@RequestBody ClienteDTO cliente) {
-
-		clientes.add(cliente);
-		Long id = Long.valueOf(clientes.size() - 1);
-		return id;
+		return this.clienteController.insertCliente(cliente);
+		
 	}
 
 	@PutMapping("/{id}")

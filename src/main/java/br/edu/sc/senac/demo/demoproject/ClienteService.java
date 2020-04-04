@@ -1,6 +1,5 @@
 package br.edu.sc.senac.demo.demoproject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -19,34 +18,36 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/cliente")
 public class ClienteService {
 
-	private List<ClienteDTO> clientes = new ArrayList<ClienteDTO>();
 
+	 private  final (ClienteController clienteController;
+
+	ClienteService(final ClienteController  clienteController) {
+		 this.clienteController= clienteController;
+	
+	}
+	 
+	
+	
 	@PostMapping("/add-Default")
 	public void addDefault() {
 
-		ClienteDTO cliente = new ClienteDTO("marciel", "1983-02-31", "marcielmcs@outlook.com");
-		clientes.add(cliente);
+		 addCliente ("marciel", "1983-02-31", "marcielmcs@outlook.com");
 
-		cliente = new ClienteDTO("sheila mello", "1980-01-02", "mello@Gmail.com");
-		clientes.add(cliente);
+		 addCliente ("sheila mello", "1980-01-02", "mello@Gmail.com");
 
-		cliente = new ClienteDTO("He-man", "1970-02-31", "ventania@outllook.com");
-		clientes.add(cliente);
+		 addCliente ("He-man", "1970-02-31", "ventania@outllook.com");
 
-		cliente = new ClienteDTO("carla vulcao", "2000-10-15", "erupcao@hotmail.com");
-		clientes.add(cliente);
+		 addCliente ("carla vulcao", "2000-10-15", "erupcao@hotmail.com");
 
-		cliente = new ClienteDTO("janaina carvalho", "2005-12-09", "jana@outlook.com");
-		clientes.add(cliente);
+		 addCliente ("janaina carvalho", "2005-12-09", "jana@outlook.com");
 
-		cliente = new ClienteDTO("kayo wanke", "1945-10-04", "wanky@hotmail.com");
-		clientes.add(cliente);
+		 addCliente("kayo wanke", "1945-10-04", "wanky@hotmail.com");
 
 	}
 
 	@GetMapping("/list")
 	public List<ClienteDTO> list() {
-		return clientes;
+		return   ;
 
 	}
 

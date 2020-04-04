@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClienteService {
 
 
-	 private  final (ClienteController clienteController;
+	 private final ClienteController clienteController;
 
 	ClienteService(final ClienteController  clienteController) {
 		 this.clienteController= clienteController;
@@ -47,7 +47,7 @@ public class ClienteService {
 
 	@GetMapping("/list")
 	public List<ClienteDTO> list() {
-		return   ;
+		return this.clienteController.getAllClientes();
 
 	}
 

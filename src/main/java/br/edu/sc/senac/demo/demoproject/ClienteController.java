@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class ClienteController {
 
-	 private List<ClienteDTO> clientes = new ArrayList<>();
+	private List<ClienteDTO> clientes = new ArrayList<>();
 
 	Long insertCliente(ClienteDTO cliente) {
 
@@ -19,7 +19,7 @@ public class ClienteController {
 
 	ClienteDTO getAllCliente(Long id) {
 
-		if (id >= clientes.size() || id < 0) {
+		if (isExisteCliente(id)) {
 
 			return ClienteDTO.NULL_VALUE;
 
@@ -32,6 +32,42 @@ public class ClienteController {
 
 	List<ClienteDTO> getAllClientes() {
 		return clientes;
+	}
+
+	ClienteDTO removeCliente(Long id) {
+		if (isExisteCliente(id)) {
+			return ClienteDTO.NULL_VALUE;
+
+		}
+		int index = id.intValue();
+		ClienteDTO cliente = clientes.remove(index);
+
+		return cliente;
+
+	}
+
+	private boolean isExisteCliente(Long id) {
+		return id >= clientes.size() || id < 0;
+	}
+
+	Long addCliente(ClienteDTO cliente) {
+		clientes.add(cliente);
+		Long id = Long.valueOf(clientes.size() - 1);
+		return id;
+
+	}
+
+	ClienteDTO updateCliente(final Long id, ClienteDTO updateCliente) {
+		if (isExisteCliente(id)) {
+
+			return ClienteDTO.NULL_VALUE;
+
+		}
+		int index = id.intValue();
+		ClienteDTO oldCliente = clientes.remove(index);
+		clientes.add(index, updateCliente);
+		return oldCliente;
+
 	}
 
 }

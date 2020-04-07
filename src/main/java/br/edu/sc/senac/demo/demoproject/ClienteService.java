@@ -57,52 +57,50 @@ public class ClienteService<ListClienteDTO> {
 		}
 		return new ResponseEntity<ClienteDTO>(cliente, HttpStatus.OK);
 	}
-	/*
-	 * @DeleteMapping("/{id}") public ResponseEntity<ClienteDTO>
-	 * removeCliente(@PathVariable Long id) {
-	 * 
-	 * if (id >= clientes.size() || id < 0) { return new
-	 * ResponseEntity<>(HttpStatus.NOT_FOUND);
-	 * 
-	 * } int index = id.intValue(); ClienteDTO cliente = clientes.remove(index);
-	 * 
-	 * return new ResponseEntity<>(cliente, HttpStatus.OK);
-	 * 
-	 * }
-	 * 
-	 * /**
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<ClienteDTO> removeCliente(@PathVariable Long id) {
+		ClienteDTO removecliente = this.clienteController.removeCliente(id);
+		if (ClienteDTO.NULL_VALUE.equals(removecliente)) {
+
+			return new ResponseEntity<ClienteDTO>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<ClienteDTO>(HttpStatus.OK);
+	}
+
+	/**
 	 * 
 	 * @deprecated exemplo didático "@requestParam" é um metodo pouco produtitvo
-	 * para o desenvolvedor, visto que para passar o parametro temos que utilizar
-	 * muitas linhas tornando o codigo dificil de maninular.Por padrao usuamos o
-	 * "@requestBody" efetuando um payload para o cadastro e enviamos um json para o
-	 * banco de dados.
+	 *             para o desenvolvedor, visto que para passar o parametro temos que
+	 *             utilizar muitas linhas tornando o codigo dificil de maninular.Por
+	 *             padrao usuamos o "@requestBody" efetuando um payload para o
+	 *             cadastro e enviamos um json para o banco de dados.
 	 * 
 	 *
 	 */
-	/*
-	 * @PostMapping("/add") public Long addCliente(@RequestParam("nome") String
-	 * nome, @RequestParam("dataNascimento") String dataNascimento,
-	 * 
-	 * @RequestParam("email") String email) { ClienteDTO cliente = new
-	 * ClienteDTO(nome, dataNascimento, email); clientes.add(cliente); Long id =
-	 * Long.valueOf(clientes.size() - 1); return id;
-	 * 
-	 * } 8/
-	 * 
-	 * @PostMapping("/addpayload") public Long addCliente(@RequestBody ClienteDTO
-	 * cliente) { return this.clienteController.insertCliente(cliente);
-	 * 
-	 * }
-	 * 
-	 * @PutMapping("/{id}") public ResponseEntity<ClienteDTO> update(@PathVariable
-	 * Long id, @RequestBody ClienteDTO updatedCliente) { if (id >= clientes.size()
-	 * || id < 0) { return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	 * 
-	 * } int index = id.intValue(); ClienteDTO oldCliente = clientes.remove(index);
-	 * clientes.add(index, updatedCliente);
-	 * 
-	 * return new ResponseEntity<>(oldCliente, HttpStatus.OK); }
-	 */
+
+	@PostMapping("/add")
+	public Long addCliente(@RequestParam("id") Long id, @RequestParam("nome") String nome,
+			@RequestParam("dataNascimento") String dataNascimento, @RequestParam("email") String email) {
+		ClienteDTO cliente = new ClienteDTO(id, nome, dataNascimento, email);
+		return this.clienteController.addCliente(cliente);
+	}
+
+	@PostMapping("/addpayload")
+	public Long addCliente(@RequestBody ClienteDTO cliente) {
+		return this.clienteController.addCliente(cliente);
+
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<ClienteDTO> update(@PathVariable Long id, @RequestBody ClienteDTO updateCliente) {
+		ClienteDTO oldCliente = this.clienteController.updateCliente(id, updateCliente);
+		if (ClienteDTO.NULL_VALUE.equals(oldCliente)) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+		}
+
+		return new ResponseEntity<>(updateCliente, HttpStatus.OK);
+	}
 
 }

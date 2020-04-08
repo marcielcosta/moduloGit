@@ -11,7 +11,7 @@ public class ContaDTO {
 		this.id = id;
 		this.titular = titular;
 		this.saldo = saldo;
-		titular = numConta;
+		this.numConta = numConta;
 
 	}
 
